@@ -9,6 +9,7 @@ import { useTrendInsights } from "@/hooks/useTrendInsights";
 import TrendInsights from "@/components/home/TrendInsights";
 import { useLeaderboards } from "@/hooks/useLeaderboards";
 import LeaderboardCard from "@/components/home/LeaderboardCard";
+import { useBookingForecast } from "@/hooks/useBookingForecast";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const AdminDashboard = () => {
   const { data: trendData, status: trendStatus } = useBookingTrend(filters, metric);
   const insights = useTrendInsights(trendData, metric);
   const { staff, services, status: leaderboardStatus } = useLeaderboards();
+  const { data: forecastData, status: forecastStatus } = useBookingForecast();
 
   const goBookings = (query = "") => {
     navigate(`/bookings${query}`);
@@ -202,6 +204,26 @@ const AdminDashboard = () => {
                 />
               </div>
             )}
+          </div>
+        )}
+      </div>
+
+      {/* Booking Forecast */}
+      <div className="space-y-3">
+        <h2 className="text-lg font-semibold">Next 7 Days Forecast 🔮</h2>
+
+        {forecastStatus === "loading" ? (
+          <div className="h-64 rounded-lg border animate-pulse" />
+        ) : forecastStatus === "error" ? (
+          <div className="h-64 flex items-center justify-center text-sm text-muted-foreground border rounded-lg">
+            Failed to load forecast
+          </div>
+        ) : (
+          <div className="bg-background sm:bg-transparent p-2 sm:p-0 rounded-lg">
+            <BookingTrendChart
+              data={forecastData || []}
+              metric="bookings"
+            />
           </div>
         )}
       </div>

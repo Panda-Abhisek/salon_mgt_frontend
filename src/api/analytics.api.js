@@ -17,3 +17,6 @@ export const getTopStaff = () =>
 
 export const getTopServices = () =>
   api.get("/api/analytics/leaderboard/services");
+
+export const getBookingForecast = () =>
+  api.get("/api/analytics/forecast/bookings");
