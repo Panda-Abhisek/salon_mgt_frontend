@@ -31,6 +31,27 @@ const AdminDashboard = () => {
     navigate(`/bookings${query}`);
   };
 
+  const exportCSV = (data, metric) => {
+    if (!data?.length) return;
+
+    const header = ["Date", metric === "revenue" ? "Revenue" : "Bookings"];
+
+    const rows = data.map(d => [d.date, d.value]);
+
+    const csv =
+      [header, ...rows]
+        .map(r => r.join(","))
+        .join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `trend-${metric}.csv`;
+    a.click();
+  };
+
   if (status === "loading") return <HomeSkeleton />;
 
   if (!summary) return null;
@@ -64,8 +85,8 @@ const AdminDashboard = () => {
         />
       </div>
 
-      {/* Booking trend */}
       <div className="space-y-4">
+        {/* Booking trend */}
         {/* Header */}
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
 
@@ -81,13 +102,21 @@ const AdminDashboard = () => {
                 key={m.value}
                 onClick={() => setMetric(m.value)}
                 className={`px-3 py-1 rounded-md text-sm ${metric === m.value
-                    ? "bg-primary text-black"
-                    : "bg-muted"
+                  ? "bg-primary text-black"
+                  : "bg-muted"
                   }`}
               >
                 {m.label}
               </button>
             ))}
+
+            {/* Export Button */}
+            <button
+              onClick={() => exportCSV(trendData, metric)}
+              className="px-3 py-1 text-sm rounded-md bg-muted hover:bg-muted/70"
+            >
+              Export CSV
+            </button>
           </div>
         </div>
 
@@ -108,8 +137,8 @@ const AdminDashboard = () => {
                   setRange(r.value);
                 }}
                 className={`px-3 py-1 rounded-md text-sm ${range === r.value && !isCustomActive
-                    ? "bg-primary text-black"
-                    : "bg-muted"
+                  ? "bg-primary text-black"
+                  : "bg-muted"
                   }`}
               >
                 {r.label}
