@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   fetchStaff,
   createStaff,
@@ -11,7 +11,7 @@ export const useStaff = () => {
   const [status, setStatus] = useState("loading");
   const [adding, setAdding] = useState(false);
 
-  const loadStaff = async () => {
+  const loadStaff = useCallback(async () => {
     try {
       const res = await fetchStaff();
       setStaff(res.data);
@@ -19,11 +19,11 @@ export const useStaff = () => {
     } catch (err) {
       setStatus(err.response?.status === 403 ? "forbidden" : "error");
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadStaff();
-  }, []);
+  }, [loadStaff]);
 
   const addStaff = async (data) => {
     setAdding(true);

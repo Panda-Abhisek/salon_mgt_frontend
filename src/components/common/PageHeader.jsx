@@ -5,7 +5,6 @@ import { ChevronRight } from "lucide-react";
 
 export default function PageHeader() {
   const breadcrumbs = useBreadcrumbs();
-  const title = breadcrumbs.at(-1)?.label;
 
   return (
     <div className="m-3">

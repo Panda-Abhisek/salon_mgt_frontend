@@ -3,7 +3,7 @@ import { LogOut, Menu, User } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "@/config/navigation";
-import { useAuth } from "@/auth/AuthContext";
+import { useAuth } from "@/auth/useAuth";
 
 import SidebarItem from "./SidebarItem";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ export default function MobileSidebar() {
     const location = useLocation();
 
     useEffect(() => {
-        setOpen(false);
+        setOpen(prev => (prev ? false : prev));
     }, [location.pathname]);
     
     return (

@@ -1,5 +1,5 @@
 // src/hooks/useBooking.js
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   fetchBooking,
   cancelBooking,
@@ -12,9 +12,9 @@ export const useBooking = (bookingId) => {
   const [status, setStatus] = useState("loading"); // loading | ok | error
   const [actionLoading, setActionLoading] = useState(false);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
-      setStatus("loading");
+      setStatus(prev => prev !== "loading" ? "loading" : prev);
       const { data } = await fetchBooking(bookingId);
       setBooking(data);
       setStatus("ok");
@@ -22,11 +22,11 @@ export const useBooking = (bookingId) => {
       console.error("Fetch booking failed:", err);
       setStatus("error");
     }
-  };
+  }, [bookingId]);
 
   useEffect(() => {
     load();
-  }, [bookingId]);
+  }, [load]);
 
   const runAction = async (fn) => {
     setActionLoading(true);

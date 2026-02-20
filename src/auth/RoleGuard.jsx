@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "@/auth/AuthContext";
+import { useAuth } from "@/auth/useAuth";
 import { hasRole } from "@/auth/permissions";
 import ForbiddenStateCard from "@/components/common/ForbiddenStateCard";
 import PageWrapper from "@/components/common/PageWrapper";

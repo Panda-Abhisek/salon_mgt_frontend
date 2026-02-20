@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { staffDashboardApi } from "@/api/staffDashboard.api";
 
 export const useStaffDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [status, setStatus] = useState("loading");
 
-  const load = async () => {
-    setStatus("loading");
+  const load = useCallback(async () => {
+    setStatus(prev => prev !== "loading" ? "loading" : prev);
     try {
       const { data } = await staffDashboardApi.getTodayBookings();
       setBookings(data);
@@ -14,11 +14,11 @@ export const useStaffDashboard = () => {
     } catch {
       setStatus("error");
     }
-  };
+  }, []);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   /* ---------- derived stats ---------- */
 

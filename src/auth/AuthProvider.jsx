@@ -1,8 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import api, { injectAuth } from "../lib/axios";
 import { hasAnyRole, hasRole } from "./permissions";
-
-const AuthContext = createContext(null);
+import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -11,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [initializing, setInitializing] = useState(true);
 
   /* ---------- shared helper ---------- */
-  const fetchMe = async (token) => {
+  const fetchMe = useCallback(async (token) => {
     const res = await api.get("/api/auth/me", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -19,10 +18,10 @@ export const AuthProvider = ({ children }) => {
     });
     setUser(res.data);
     return res.data;
-  };
+  }, []);
 
   /* ---------- login ---------- */
-  const login = async (credentials) => {
+  const login = useCallback(async (credentials) => {
     setLoading(true);
     try {
       const res = await api.post("/api/auth/login", credentials);
@@ -33,10 +32,10 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchMe]);
 
   /* ---------- logout ---------- */
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       if (accessToken) {
         await api.post(
@@ -49,13 +48,13 @@ export const AuthProvider = ({ children }) => {
           }
         );
       }
-    } catch (e) {
+    } catch {
       // backend already handled revocation, frontend just cleans up
     } finally {
       setUser(null);
       setAccessToken(null);
     }
-  };
+  }, [accessToken]);
 
   /* ---------- axios <-> auth bridge ---------- */
   useEffect(() => {
@@ -64,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       setAccessToken,
       logout,
     });
-  }, [accessToken]);
+  }, [accessToken, logout]);
 
   /* ---------- startup session restore (UX FIX) ---------- */
   useEffect(() => {
@@ -75,7 +74,7 @@ export const AuthProvider = ({ children }) => {
 
         setAccessToken(newToken);
         await fetchMe(newToken);
-      } catch (e) {
+      } catch {
         setUser(null);
         setAccessToken(null);
       } finally {
@@ -84,7 +83,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     restoreSession();
-  }, []);
+  }, [fetchMe]);
 
   const value = {
     user,
@@ -103,13 +102,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-/* ---------- hook ---------- */
-export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) {
-    throw new Error("useAuth must be used inside AuthProvider");
-  }
-  return ctx;
 };

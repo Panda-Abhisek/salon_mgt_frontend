@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { fetchBookings } from "@/api/booking.api";
 import PageWrapper from "@/components/common/PageWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -45,8 +45,8 @@ const BookingList = () => {
   const [size, setSize] = useState(5);
 
   /* ---------- Fetch from backend ---------- */
-  const loadBookings = () => {
-    setStatus("loading");
+  const loadBookings = useCallback(() => {
+    setStatus(prev => prev !== "loading" ? "loading" : prev);
 
     fetchBookings({
       page,
@@ -65,15 +65,15 @@ const BookingList = () => {
       setStatus("ok");
     })
       .catch(() => setStatus("error"));
-  };
+  }, [page, size, filter, search]);
 
   useEffect(() => {
     loadBookings();
-  }, [page, filter, search, size]);
+  }, [loadBookings]);
 
   /* Reset page when filter/search changes */
   useEffect(() => {
-    setPage(0);
+    setPage(prev => prev !== 0 ? 0 : prev);
   }, [filter, search, size]);
 
   /* ---------- Loading ---------- */

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useStaff } from "@/hooks/useStaff";
 import { useServiceStaff } from "@/hooks/useServiceStaff"; // ✅ NEW
 import { hasRole } from "@/auth/permissions";
-import { useAuth } from "@/auth/AuthContext";
+import { useAuth } from "@/auth/useAuth";
 
 import StaffCard from "@/components/staff/StaffCard";
 import StaffForm from "@/components/staff/StaffForm";
@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 import EmptyStateCard from "@/components/common/EmptyStateCard";
 import ForbiddenStateCard from "@/components/common/ForbiddenStateCard";

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { fetchBookings } from "@/api/booking.api";
 
 export const useUserDashboard = () => {
@@ -8,9 +8,9 @@ export const useUserDashboard = () => {
 
   const [status, setStatus] = useState("loading");
 
-  const loadDashboard = async () => {
+  const loadDashboard = useCallback(async () => {
     try {
-      setStatus("loading");
+      setStatus(prev => prev !== "loading" ? "loading" : prev);
 
       const [nextRes, upcomingRes, historyRes] = await Promise.all([
         fetchBookings({ range: "UPCOMING", size: 1 }),
@@ -27,11 +27,11 @@ export const useUserDashboard = () => {
       console.error("User dashboard failed", err);
       setStatus("error");
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadDashboard();
-  }, []);
+  }, [loadDashboard]);
 
   return {
     nextBooking,

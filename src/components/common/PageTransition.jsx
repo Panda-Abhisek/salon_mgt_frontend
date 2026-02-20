@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 const variants = {
   initial: {
@@ -17,7 +17,7 @@ const variants = {
 
 export default function PageTransition({ children }) {
   return (
-    <motion.div
+    <Motion.div
       variants={variants}
       initial="initial"
       animate="animate"
@@ -29,6 +29,6 @@ export default function PageTransition({ children }) {
       className="h-full"
     >
       {children}
-    </motion.div>
+    </Motion.div>
   );
 }

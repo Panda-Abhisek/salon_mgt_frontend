@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { useHome } from "@/hooks/useHome";
-import { useAuth } from "@/auth/AuthContext";
+import { useAuth } from "@/auth/useAuth";
 
 import PageWrapper from "@/components/common/PageWrapper";
 import ForbiddenStateCard from "@/components/common/ForbiddenStateCard";

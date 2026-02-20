@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "@/auth/AuthContext";
+import { useAuth } from "@/auth/useAuth";
 import { hasRole } from "@/auth/permissions";
 
 import { useServices } from "@/hooks/useServices";
@@ -52,7 +52,7 @@ const Services = () => {
     services.forEach((service) => {
       loadStaff(service.id);
     });
-  }, [services]);
+  }, [services, loadStaff]);
 
   /* ---------- handlers ---------- */
 
@@ -160,6 +160,7 @@ const Services = () => {
           </DialogHeader>
 
           <ServiceForm
+            key={editingService?.id || "edit"}
             initialData={editingService}
             loading={saving}
             onSubmit={async (data) => {

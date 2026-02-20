@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { serviceApi } from "@/api/service.api";
 
 export const useServiceStaff = () => {
@@ -7,7 +7,7 @@ export const useServiceStaff = () => {
 
   /* ---------- read ---------- */
 
-  const loadStaff = async (serviceId, { force = false } = {}) => {
+  const loadStaff = useCallback(async (serviceId, { force = false } = {}) => {
     if (!force && (staffMap[serviceId] || loading[serviceId])) return;
 
     setLoading((prev) => ({ ...prev, [serviceId]: true }));
@@ -20,31 +20,31 @@ export const useServiceStaff = () => {
     } finally {
       setLoading((prev) => ({ ...prev, [serviceId]: false }));
     }
-  };
+  }, [staffMap, loading]);
 
   /* ---------- write (cache sync) ---------- */
 
   // Used after assign / unassign mutations
-  const setStaffForService = (serviceId, staff) => {
+  const setStaffForService = useCallback((serviceId, staff) => {
     setStaffMap((prev) => ({
       ...prev,
       [serviceId]: staff,
     }));
-  };
+  }, []);
 
   /* ---------- invalidate ---------- */
 
-  const invalidate = (serviceId) => {
+  const invalidate = useCallback((serviceId) => {
     setStaffMap((prev) => {
       const next = { ...prev };
       delete next[serviceId];
       return next;
     });
-  };
+  }, []);
 
-  const invalidateAll = () => {
+  const invalidateAll = useCallback(() => {
     setStaffMap({});
-  };
+  }, []);
 
   /* ---------- exposed API ---------- */
 

@@ -5,11 +5,15 @@ export function useBookingTrend(filters, metric = "bookings") {
   const [data, setData] = useState(null);
   const [status, setStatus] = useState("loading");
 
+  const filtersKey = JSON.stringify(filters);
+
   useEffect(() => {
     if (!filters) return;
 
     let mounted = true;
-    setStatus("loading");
+    setTimeout(() => {
+      if (mounted) setStatus(prev => (prev !== "loading" ? "loading" : prev));
+    }, 0);
 
     const apiCall =
       metric === "revenue"
@@ -28,7 +32,7 @@ export function useBookingTrend(filters, metric = "bookings") {
       });
 
     return () => (mounted = false);
-  }, [JSON.stringify(filters), metric]);
+  }, [filtersKey, metric, filters]);
 
   return { data, status };
 }

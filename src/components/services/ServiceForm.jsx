@@ -1,20 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DialogFooter } from "@/components/ui/dialog";
 
 const ServiceForm = ({ initialData, onSubmit, loading }) => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [duration, setDuration] = useState("");
-
-  useEffect(() => {
-    if (initialData) {
-      setName(initialData.name);
-      setPrice(initialData.price);
-      setDuration(initialData.durationMinutes);
-    }
-  }, [initialData]);
+  const [name, setName] = useState(initialData?.name || "");
+  const [price, setPrice] = useState(initialData?.price || "");
+  const [duration, setDuration] = useState(initialData?.durationMinutes || "");
 
   const handleSubmit = (e) => {
     e.preventDefault();
