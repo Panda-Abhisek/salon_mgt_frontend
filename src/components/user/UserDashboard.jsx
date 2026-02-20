@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useUserDashboard } from "@/hooks/useUserDashboard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import HomeSkeleton from "@/components/home/HomeSkeleton";
+import { Button } from "../ui/button";
 
-const UserDashboard = () => {
+const UserDashboard = ({ hasSalon }) => {
   const navigate = useNavigate();
   const { nextBooking, upcoming, history, status } = useUserDashboard();
 
@@ -100,6 +101,11 @@ const UserDashboard = () => {
           ))}
         </CardContent>
       </Card>
+      {hasSalon === "no_salon" && (
+        <Button onClick={() => navigate("/salon")}>
+          Create Salon
+        </Button>
+      )}
     </div>
   );
 };

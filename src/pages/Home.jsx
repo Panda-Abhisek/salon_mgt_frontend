@@ -92,7 +92,7 @@ const Home = () => {
         )}
 
         {primaryRole === "USER" && (
-          <UserDashboard />
+          <UserDashboard hasSalon={salonStatus}/>
         )}
       </div>
     </PageWrapper>

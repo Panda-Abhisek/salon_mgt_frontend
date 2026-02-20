@@ -105,7 +105,7 @@ function App() {
             <Route
               path="/salon"
               element={
-                <RoleGuard roles={["ROLE_SALON_ADMIN"]}>
+                <RoleGuard roles={["ROLE_SALON_ADMIN", "ROLE_USER"]}>
                   <Salon />
                 </RoleGuard>
               }
