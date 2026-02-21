@@ -5,9 +5,23 @@ import Sidebar from "./Sidebar";
 import MobileSidebar from "./MobileSidebar";
 import PageTransition from "@/components/common/PageTransition";
 import PageHeader from "@/components/common/PageHeader";
+import { useEffect, useState } from "react";
+import UpgradeModal from "@/components/subscription/UpgradeModal";
 
 export default function AppLayout() {
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const [paywallData, setPaywallData] = useState(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const handler = (e) => {
+      setPaywallData(e.detail);
+      setUpgradeOpen(true);
+    };
+
+    window.addEventListener("paywall", handler);
+    return () => window.removeEventListener("paywall", handler);
+  }, []);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -31,6 +45,10 @@ export default function AppLayout() {
           </AnimatePresence>
         </main>
       </div>
+      <UpgradeModal
+        open={upgradeOpen}
+        onClose={() => setUpgradeOpen(false)}
+      />
     </div>
   );
 }

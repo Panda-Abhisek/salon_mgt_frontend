@@ -45,6 +45,16 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    // ---------------- PAYWALL DETECTION ----------------
+    if (error.response?.data?.code === "PLAN_LIMIT_EXCEEDED") {
+      window.dispatchEvent(
+        new CustomEvent("paywall", {
+          detail: error.response.data,
+        })
+      );
+      return Promise.reject(error);
+    }
+
     // 🚫 Refresh failed → logout
     if (
       originalRequest?.url?.includes("/api/auth/refresh") &&

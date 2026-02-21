@@ -83,13 +83,6 @@ const AdminDashboard = () => {
 
     const isFree = data.plan === "FREE";
     const isPro = data.plan === "PRO";
-    {
-      isPro && (
-        <span className="text-xs text-blue-500 font-medium">
-          You're on PRO 🚀
-        </span>
-      )
-    }
 
     return (
       <>
@@ -107,6 +100,13 @@ const AdminDashboard = () => {
               Upgrade
             </button>
           )}
+          {
+            isPro && (
+              <span className="text-xs text-blue-500 font-medium">
+                You're on PRO 🚀
+              </span>
+            )
+          }
         </div>
 
         <UpgradeModal open={open} onClose={() => setOpen(false)} />

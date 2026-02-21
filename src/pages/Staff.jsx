@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useStaff } from "@/hooks/useStaff";
-import { useServiceStaff } from "@/hooks/useServiceStaff"; // ✅ NEW
+import { useServiceStaff } from "@/hooks/useServiceStaff";
 import { hasRole } from "@/auth/permissions";
 import { useAuth } from "@/auth/useAuth";
 
@@ -20,11 +20,9 @@ import { toast } from "sonner";
 
 import EmptyStateCard from "@/components/common/EmptyStateCard";
 import ForbiddenStateCard from "@/components/common/ForbiddenStateCard";
+import { useSubscription } from "@/hooks/useSubscription";
 
 const Staff = () => {
-  const { user } = useAuth();
-  const canManage = hasRole(user, "ROLE_SALON_ADMIN");
-
   const {
     staff,
     status,
@@ -33,6 +31,19 @@ const Staff = () => {
     toggleStatus,
     loadStaff,
   } = useStaff();
+
+  const PLAN_LIMITS = {
+    FREE: 2,
+    PRO: 10,
+    PREMIUM: 50,
+  };
+  const { data: subscription } = useSubscription(); 
+  const planType = subscription?.plan;
+  const limit = PLAN_LIMITS[planType] || 0;
+  const used = staff.length;
+  const isFull = used >= limit;
+  const { user } = useAuth();
+  const canManage = hasRole(user, "ROLE_SALON_ADMIN");
 
   // ✅ invalidate service → staff cache
   const { invalidate } = useServiceStaff();
@@ -73,11 +84,31 @@ const Staff = () => {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Staff</h1>
+        <div>
+          <h1 className="text-2xl font-semibold">Staff</h1>
+
+          {planType && (
+            <p
+              className={`text-sm mt-1 ${isFull ? "text-destructive font-medium" : "text-muted-foreground"
+                }`}
+            >
+              {used} / {limit} staff used ({planType} plan)
+            </p>
+          )}
+          {isFull && (
+            <p className="text-xs text-muted-foreground">
+              Upgrade your plan to add more staff.
+            </p>
+          )}
+        </div>
 
         {canManage && (
-          <Button onClick={() => setAddOpen(true)}>
-            Add Staff
+          <Button
+            onClick={() => setAddOpen(true)}
+            disabled={isFull}
+            variant={isFull ? "secondary" : "default"}
+          >
+            {isFull ? "Limit reached" : "Add Staff"}
           </Button>
         )}
       </div>
