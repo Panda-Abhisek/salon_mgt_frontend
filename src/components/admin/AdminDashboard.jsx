@@ -12,6 +12,7 @@ import LeaderboardCard from "@/components/home/LeaderboardCard";
 import { useBookingForecast } from "@/hooks/useBookingForecast";
 import { useSubscription } from "@/hooks/useSubscription";
 import UpgradeModal from "../subscription/UpgradeModal";
+import FeatureLock from "../subscription/FeatureLock";
 
 function PlanBadge({ plan }) {
   const colors = {
@@ -101,7 +102,7 @@ const AdminDashboard = () => {
           {isFree && (
             <button
               onClick={() => setOpen(true)}
-              className="px-3 py-1 rounded bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm"
+              className="px-3 py-1 rounded bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm"
             >
               Upgrade
             </button>
@@ -239,25 +240,29 @@ const AdminDashboard = () => {
         ) : (
           <div className="transition-opacity duration-300">
             <div className="bg-background sm:bg-transparent p-2 sm:p-0 rounded-lg w-full">
-              <BookingTrendChart
-                data={trendData || []}
-                metric={metric}
-              />
+              <FeatureLock required="PRO">
+                <BookingTrendChart
+                  data={trendData || []}
+                  metric={metric}
+                />
+              </FeatureLock>
             </div>
             {trendStatus === "success" && insights && (
               <TrendInsights insights={insights} />
             )}
             {leaderboardStatus === "success" && (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
-                <LeaderboardCard
-                  title="🏆 Top Staff"
-                  items={staff}
-                />
-                <LeaderboardCard
-                  title="🔥 Top Services"
-                  items={services}
-                />
-              </div>
+              <FeatureLock required="PRO">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
+                  <LeaderboardCard
+                    title="🏆 Top Staff"
+                    items={staff}
+                  />
+                  <LeaderboardCard
+                    title="🔥 Top Services"
+                    items={services}
+                  />
+                </div>
+              </FeatureLock>
             )}
           </div>
         )}
@@ -275,10 +280,12 @@ const AdminDashboard = () => {
           </div>
         ) : (
           <div className="bg-background sm:bg-transparent p-2 sm:p-0 rounded-lg">
-            <BookingTrendChart
-              data={forecastData || []}
-              metric="bookings"
-            />
+            <FeatureLock required="PREMIUM">
+              <BookingTrendChart
+                data={forecastData || []}
+                metric="bookings"
+              />
+            </FeatureLock>
           </div>
         )}
       </div>
