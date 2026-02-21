@@ -11,9 +11,7 @@ export function useBookingTrend(filters, metric = "bookings") {
     if (!filters) return;
 
     let mounted = true;
-    setTimeout(() => {
-      if (mounted) setStatus(prev => (prev !== "loading" ? "loading" : prev));
-    }, 0);
+    setStatus("loading");
 
     const apiCall =
       metric === "revenue"
@@ -32,7 +30,7 @@ export function useBookingTrend(filters, metric = "bookings") {
       });
 
     return () => (mounted = false);
-  }, [filtersKey, metric, filters]);
+  }, [filtersKey, metric]);
 
   return { data, status };
 }
