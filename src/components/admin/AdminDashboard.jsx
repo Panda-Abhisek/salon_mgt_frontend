@@ -10,6 +10,22 @@ import TrendInsights from "@/components/home/TrendInsights";
 import { useLeaderboards } from "@/hooks/useLeaderboards";
 import LeaderboardCard from "@/components/home/LeaderboardCard";
 import { useBookingForecast } from "@/hooks/useBookingForecast";
+import { useSubscription } from "@/hooks/useSubscription";
+import UpgradeModal from "../subscription/UpgradeModal";
+
+function PlanBadge({ plan }) {
+  const colors = {
+    FREE: "bg-gray-500",
+    PRO: "bg-blue-600",
+    PREMIUM: "bg-purple-600",
+  };
+
+  return (
+    <span className={`px-2 py-1 text-xs rounded text-white ${colors[plan]}`}>
+      {plan}
+    </span>
+  );
+}
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -58,9 +74,48 @@ const AdminDashboard = () => {
 
   if (!summary) return null;
 
+  function DashboardHeader() {
+    const { data, status } = useSubscription();
+    const [open, setOpen] = useState(false);
+
+    if (status !== "success") return null;
+
+    const isFree = data.plan === "FREE";
+    const isPro = data.plan === "PRO";
+    {
+      isPro && (
+        <span className="text-xs text-blue-500 font-medium">
+          You're on PRO 🚀
+        </span>
+      )
+    }
+
+    return (
+      <>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-semibold flex items-center gap-2">
+            Admin Dashboard
+            <PlanBadge plan={data.plan} />
+          </h1>
+
+          {isFree && (
+            <button
+              onClick={() => setOpen(true)}
+              className="px-3 py-1 rounded bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm"
+            >
+              Upgrade
+            </button>
+          )}
+        </div>
+
+        <UpgradeModal open={open} onClose={() => setOpen(false)} />
+      </>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
-
+      <DashboardHeader />
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard
