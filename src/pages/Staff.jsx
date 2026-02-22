@@ -32,14 +32,9 @@ const Staff = () => {
     loadStaff,
   } = useStaff();
 
-  const PLAN_LIMITS = {
-    FREE: 2,
-    PRO: 10,
-    PREMIUM: 50,
-  };
-  const { data: subscription } = useSubscription(); 
+  const { data: subscription } = useSubscription();
   const planType = subscription?.plan;
-  const limit = PLAN_LIMITS[planType] || 0;
+  const limit = subscription?.limits?.maxStaff || 0;
   const used = staff.length;
   const isFull = used >= limit;
   const { user } = useAuth();
