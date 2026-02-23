@@ -18,6 +18,7 @@ import ServiceForm from "@/components/services/ServiceForm";
 import ServiceCard from "@/components/services/ServiceCard";
 import EmptyStateCard from "@/components/common/EmptyStateCard";
 import ForbiddenStateCard from "@/components/common/ForbiddenStateCard";
+import { useSubscription } from "@/hooks/useSubscription";
 
 const Services = () => {
   const { user } = useAuth();
@@ -34,6 +35,12 @@ const Services = () => {
     updateService,
     toggleServiceStatus,
   } = useServices();
+
+  const { data: subscription } = useSubscription();
+  const planType = subscription?.plan;
+  const limit = subscription?.limits?.maxServices || 0;
+  const used = services.length;
+  const isFull = used >= limit;
 
   /* ---------- staff cache ---------- */
 
@@ -106,13 +113,34 @@ const Services = () => {
           <p className="text-muted-foreground">
             Manage the services offered by your salon.
           </p>
+          {planType && (
+            <p
+              className={`text-sm mt-1 ${isFull ? "text-destructive font-medium" : "text-muted-foreground"
+                }`}
+            >
+              {used} / {limit} service used ({planType} plan)
+            </p>
+          )}
+          {isFull && (
+            <p className="text-xs text-muted-foreground">
+              Upgrade your plan to add more services.
+            </p>
+          )}
         </div>
-
         {isAdmin && (
+          <Button
+            onClick={() => setCreateOpen(true)}
+            disabled={isFull}
+            variant={isFull ? "secondary" : "default"}
+          >
+            {isFull ? "Limit reached" : "Add Staff"}
+          </Button>
+        )}
+        {/* {isAdmin && (
           <Button onClick={() => setCreateOpen(true)}>
             Add Service
           </Button>
-        )}
+        )} */}
       </header>
 
       {services.length === 0 ? (
