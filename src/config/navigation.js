@@ -5,11 +5,10 @@ import {
   Users,
   CalendarRange,
   BookOpen,
+  CircleDollarSign,
 } from "lucide-react";
 
 export const NAV_ITEMS = [
-
-  // Admin + Staff
   {
     label: "Home",
     path: "/home",
@@ -17,7 +16,6 @@ export const NAV_ITEMS = [
     roles: ["ROLE_SALON_ADMIN", "ROLE_STAFF", "ROLE_USER"],
   },
 
-  // Admin Only
   {
     label: "Salon",
     path: "/salon",
@@ -44,12 +42,17 @@ export const NAV_ITEMS = [
   },
   {
     label: "Bookings",
-    path: "/bookings/list",
+    path: "/bookings",
     icon: BookOpen,
     roles: ["ROLE_STAFF", "ROLE_SALON_ADMIN"],
   },
+  {
+    label: "Billing",
+    path: "/billing",
+    icon: CircleDollarSign,
+    roles: ["ROLE_SALON_ADMIN"],
+  },
 
-  // Pure Marketplace User
   {
     label: "Browse Salons",
     path: "/salons",
@@ -59,7 +62,7 @@ export const NAV_ITEMS = [
   },
   {
     label: "My Bookings",
-    path: "/bookings/list",
+    path: "/bookings",
     icon: BookOpen,
     roles: ["ROLE_USER"],
     excludeRoles: ["ROLE_SALON_ADMIN", "ROLE_STAFF"],

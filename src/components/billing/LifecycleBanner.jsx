@@ -60,7 +60,7 @@ export default function LifecycleBanner() {
   if (inTrial) {
     return (
       <div className="bg-muted px-4 py-2 text-sm text-muted-foreground text-center">
-        You’re currently experiencing premium features during your trial.
+        You’re currently experiencing <strong>PRO</strong> features during your trial.
       </div>
     );
   }

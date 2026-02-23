@@ -22,6 +22,7 @@ import BookingList from "./pages/bookings/BookingList";
 import Signup from "./pages/Signup";
 import SalonList from "./pages/public/SalonList";
 import SalonDetails from "./pages/public/SalonDetails";
+import Billing from "./pages/Billing";
 
 function App() {
   const { initializing } = useAuth();
@@ -85,7 +86,7 @@ function App() {
             />
 
             {/* 🧓 Legacy alias (safe to remove later) */}
-            <Route path="/bookings/list" element={<Navigate to="/bookings" replace />} />
+            {/* <Route path="/bookings/list" element={<Navigate to="/bookings" replace />} /> */}
 
             <Route
               path="/bookings/new"
@@ -128,10 +129,16 @@ function App() {
                 </RoleGuard>
               }
             />
-
+            <Route
+              path="/billing"
+              element={
+                <RoleGuard roles={["ROLE_SALON_ADMIN"]}>
+                  <Billing />
+                </RoleGuard>
+              }
+            />
           </Route>
         </Route>
-
         {/* -------- Fallback -------- */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
