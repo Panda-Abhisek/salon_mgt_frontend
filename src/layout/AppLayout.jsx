@@ -1,12 +1,13 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-
+import { motion } from "motion/react";
 import Sidebar from "./Sidebar";
 import MobileSidebar from "./MobileSidebar";
 import PageTransition from "@/components/common/PageTransition";
 import PageHeader from "@/components/common/PageHeader";
 import { useEffect, useState } from "react";
 import UpgradeModal from "@/components/subscription/UpgradeModal";
+import LifecycleBanner from "@/components/billing/LifecycleBanner";
 
 export default function AppLayout() {
   const [upgradeOpen, setUpgradeOpen] = useState(false);
@@ -35,7 +36,9 @@ export default function AppLayout() {
         <header className="md:hidden border-b p-2">
           <MobileSidebar />
         </header>
-
+        <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
+          <LifecycleBanner />
+        </motion.div>
         <main className="flex-1 overflow-auto">
           <AnimatePresence mode="wait">
             <PageTransition key={location.pathname}>
