@@ -247,23 +247,21 @@ const AdminDashboard = () => {
                 />
               </FeatureLock>
             </div>
-            <FeatureLock required="PRO">
-              {trendStatus === "success" && insights && (
-                <TrendInsights insights={insights} />
-              )}
-              {leaderboardStatus === "success" && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
-                  <LeaderboardCard
-                    title="🏆 Top Staff"
-                    items={staff}
-                  />
-                  <LeaderboardCard
-                    title="🔥 Top Services"
-                    items={services}
-                  />
-                </div>
-              )}
-            </FeatureLock>
+            {trendStatus === "success" && insights && (
+              <TrendInsights insights={insights} />
+            )}
+            {leaderboardStatus === "success" && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
+                <LeaderboardCard
+                  title="🏆 Top Staff"
+                  items={staff}
+                />
+                <LeaderboardCard
+                  title="🔥 Top Services"
+                  items={services}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

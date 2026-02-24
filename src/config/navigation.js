@@ -35,16 +35,17 @@ export const NAV_ITEMS = [
     roles: ["ROLE_SALON_ADMIN"],
   },
   {
-    label: "New Booking",
-    path: "/bookings/new",
-    icon: CalendarRange,
-    roles: ["ROLE_SALON_ADMIN"],
-  },
-  {
     label: "Bookings",
     path: "/bookings",
     icon: BookOpen,
     roles: ["ROLE_STAFF", "ROLE_SALON_ADMIN"],
+  },
+  {
+    label: "New Booking",
+    path: "/bookings/new",
+    icon: CalendarRange,
+    roles: ["ROLE_SALON_ADMIN"],
+    parent: "/bookings"
   },
   {
     label: "Billing",

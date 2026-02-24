@@ -2,8 +2,18 @@ import PageWrapper from "@/components/common/PageWrapper";
 import { useSubscription } from "@/hooks/useSubscription";
 import api from "@/lib/axios";
 import { usePlans } from "@/hooks/usePlans";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 export default function Billing() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("checkout") === "success") {
+      alert("Payment received. Activating subscription...");
+    }
+  }, []);
   const subscription = useSubscription();
 
   return (
@@ -19,8 +29,7 @@ export default function Billing() {
   );
 }
 
-function CurrentPlanCard() {
-  const { data } = useSubscription();
+function CurrentPlanCard({ data }) {
   if (!data) return null;
 
   return (
@@ -44,9 +53,8 @@ const FEATURES = [
   { key: "analyticsEnabled", label: "Analytics" },
   { key: "smartAlertsEnabled", label: "Smart Alerts" },
 ];
-function PlanTable() {
+function PlanTable({ subscription }) {
   const plans = usePlans();
-  const { data: subscription } = useSubscription();
 
   if (!plans.length) return null;
 
@@ -59,9 +67,8 @@ function PlanTable() {
             {plans.map(p => (
               <th
                 key={p.type}
-                className={`p-3 ${
-                  subscription?.plan === p.type ? "bg-indigo-500 font-semibold" : ""
-                }`}
+                className={`p-3 ${subscription?.plan === p.type ? "bg-indigo-500 font-semibold" : ""
+                  }`}
               >
                 {p.name}
               </th>

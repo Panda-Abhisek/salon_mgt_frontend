@@ -4,12 +4,12 @@ import { upgradePlan } from "@/api/subscription.api";
 const PLANS = [
   {
     name: "PRO",
-    price: "₹499/mo",
+    price: "₹999/mo",
     features: ["Analytics", "Trends", "Leaderboards"],
   },
   {
     name: "PREMIUM",
-    price: "₹999/mo",
+    price: "₹2499/mo",
     features: ["Everything in PRO", "Smart Alerts", "Future AI"],
   },
 ];
@@ -22,12 +22,19 @@ export default function UpgradeModal({ open, onClose, onSuccess }) {
   const upgrade = async (plan) => {
     try {
       setLoading(plan);
-      await upgradePlan(plan);
-      onSuccess?.();
-      onClose();
-      window.location.reload(); // brutal but effective
+
+      const res = await upgradePlan(plan);
+
+      const checkoutUrl = res.data?.checkoutUrl;
+
+      if (!checkoutUrl) {
+        throw new Error("Missing checkout URL");
+      }
+
+      // 🔥 Redirect to payment provider
+      window.location.href = checkoutUrl;
     } catch (e) {
-      alert("Upgrade failed");
+      alert("Unable to start payment. Try again.");
     } finally {
       setLoading(null);
     }
@@ -51,10 +58,10 @@ export default function UpgradeModal({ open, onClose, onSuccess }) {
 
               <button
                 onClick={() => upgrade(p.name)}
-                className="bg-primary text-white px-3 py-1 rounded"
+                className="bg-indigo-500 text-white px-3 py-1 rounded"
                 disabled={loading === p.name}
               >
-                {loading === p.name ? "Upgrading..." : "Upgrade"}
+                {loading === p.name ? "Redirecting..." : "Continue to payment"}
               </button>
             </div>
           ))}

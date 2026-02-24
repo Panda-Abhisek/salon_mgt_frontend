@@ -23,6 +23,7 @@ import Signup from "./pages/Signup";
 import SalonList from "./pages/public/SalonList";
 import SalonDetails from "./pages/public/SalonDetails";
 import Billing from "./pages/Billing";
+import FakeCheckout from "./pages/checkout/FakeCheckout";
 
 function App() {
   const { initializing } = useAuth();
@@ -49,6 +50,7 @@ function App() {
         {/* -------- Protected App -------- */}
         <Route element={<ProtectedRoutes />}>
           <Route element={<AppLayout />}>
+            <Route path="/fake-success" element={<FakeCheckout />} />
 
             {/* Marketplace */}
             <Route path="/salons" element={<SalonList />} />
