@@ -14,7 +14,7 @@ const PLANS = [
   },
 ];
 
-export default function UpgradeModal({ open, onClose, onSuccess }) {
+export default function UpgradeModal({ open, onClose }) {
   const [loading, setLoading] = useState(null);
 
   if (!open) return null;
@@ -24,15 +24,13 @@ export default function UpgradeModal({ open, onClose, onSuccess }) {
       setLoading(plan);
 
       const res = await upgradePlan(plan);
-
       const checkoutUrl = res.data?.checkoutUrl;
 
       if (!checkoutUrl) {
         throw new Error("Missing checkout URL");
       }
 
-      // 🔥 Redirect to payment provider
-      window.location.href = checkoutUrl;
+      window.location.assign(checkoutUrl); // safer than href
     } catch (e) {
       alert("Unable to start payment. Try again.");
     } finally {

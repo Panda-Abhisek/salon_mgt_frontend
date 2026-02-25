@@ -24,6 +24,7 @@ import SalonList from "./pages/public/SalonList";
 import SalonDetails from "./pages/public/SalonDetails";
 import Billing from "./pages/Billing";
 import FakeCheckout from "./pages/checkout/FakeCheckout";
+import BillingSuccess from "./pages/checkout/BillingSuccess";
 
 function App() {
   const { initializing } = useAuth();
@@ -136,6 +137,14 @@ function App() {
               element={
                 <RoleGuard roles={["ROLE_SALON_ADMIN"]}>
                   <Billing />
+                </RoleGuard>
+              }
+            />
+            <Route
+              path="/billing/success"
+              element={
+                <RoleGuard roles={["ROLE_SALON_ADMIN"]}>
+                  <BillingSuccess />
                 </RoleGuard>
               }
             />
