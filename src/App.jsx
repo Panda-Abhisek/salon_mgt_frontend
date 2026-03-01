@@ -25,6 +25,7 @@ import SalonDetails from "./pages/public/SalonDetails";
 import Billing from "./pages/Billing";
 import FakeCheckout from "./pages/checkout/FakeCheckout";
 import BillingSuccess from "./pages/checkout/BillingSuccess";
+import SuperAdminDashboard from "./components/superAdmin/SuperAdminDashboard";
 
 function App() {
   const { initializing } = useAuth();
@@ -51,6 +52,12 @@ function App() {
         {/* -------- Protected App -------- */}
         <Route element={<ProtectedRoutes />}>
           <Route element={<AppLayout />}>
+            <Route path="/super-admin"
+              element={
+                <RoleGuard roles={["ROLE_SUPER_ADMIN"]}>
+                  <SuperAdminDashboard />
+                </RoleGuard>
+              } />
             <Route path="/fake-success" element={<FakeCheckout />} />
 
             {/* Marketplace */}

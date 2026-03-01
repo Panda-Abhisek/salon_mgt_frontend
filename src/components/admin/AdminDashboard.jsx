@@ -13,6 +13,9 @@ import { useBookingForecast } from "@/hooks/useBookingForecast";
 import { useSubscription } from "@/hooks/useSubscription";
 import UpgradeModal from "../subscription/UpgradeModal";
 import FeatureLock from "../subscription/FeatureLock";
+import SubscriptionHealthCard from "../subscription/SubscriptionHealthCard";
+import BillingDunningBanner from "../subscription/BillingDunningBanner";
+import { createPortal } from "@/hooks/billing/useBillingPortal";
 
 function PlanBadge({ plan }) {
   const colors = {
@@ -84,6 +87,18 @@ const AdminDashboard = () => {
     const isFree = data.plan === "FREE";
     const isPro = data.plan === "PRO";
 
+    if (data.retryCount >= 2) {
+      alert("Fix billing before upgrading.");
+      return;
+    }
+
+    if (data.atRisk) {
+      alert("Resolve billing issues first.");
+      return;
+    }
+
+    const disabled = data.retryCount >= 2 || data.delinquent;
+
     return (
       <>
         <div className="flex items-center justify-between">
@@ -92,9 +107,20 @@ const AdminDashboard = () => {
             <PlanBadge plan={data.plan} />
           </h1>
 
+          <button
+            onClick={async () => {
+              const url = await createPortal();
+              window.location.href = url;
+            }}
+            className="px-3 py-1 rounded bg-muted text-sm"
+          >
+            Manage Billing
+          </button>
+
           {isFree && (
             <button
               onClick={() => setOpen(true)}
+              disabled={disabled}
               className="px-3 py-1 rounded bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm"
             >
               Upgrade
@@ -108,7 +134,8 @@ const AdminDashboard = () => {
             )
           }
         </div>
-
+        <SubscriptionHealthCard />
+        <BillingDunningBanner />
         <UpgradeModal open={open} onClose={() => setOpen(false)} />
       </>
     );

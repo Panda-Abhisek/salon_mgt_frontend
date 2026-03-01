@@ -10,6 +10,12 @@ import {
 
 export const NAV_ITEMS = [
   {
+    label: "Super Admin",
+    path: "/super-admin",
+    icon: Users,
+    roles: ["ROLE_SUPER_ADMIN"]
+  },
+  {
     label: "Home",
     path: "/home",
     icon: Home,
