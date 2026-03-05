@@ -11,8 +11,14 @@ import {
 export const NAV_ITEMS = [
   {
     label: "Super Admin",
-    path: "/super-admin",
+    path: "/superadmin",
     icon: Users,
+    roles: ["ROLE_SUPER_ADMIN"]
+  },
+  {
+    label: "Audit Logs",
+    path: "/superadmin/audits",
+    icon: BookOpen,
     roles: ["ROLE_SUPER_ADMIN"]
   },
   {
