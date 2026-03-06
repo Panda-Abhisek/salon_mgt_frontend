@@ -29,32 +29,42 @@ export default function SuperAdminDashboard() {
   } = data;
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-
-      <h1 className="text-2xl font-semibold">Super Admin Billing</h1>
+    <div className="space-y-8">
+      <header className="space-y-1">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Super Admin Billing
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          High-level metrics for subscriptions, trials, and churn across all salons.
+        </p>
+      </header>
 
       {/* Top KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <Card label="Active Subscriptions" value={totalActive} />
         <Card label="Expiring Soon" value={expiringSoon} />
         <Card label="Expired (7d)" value={expiredLast7Days} />
         <Card label="Churn Rate" value={`${(churn.rate * 100).toFixed(1)}%`} />
-      </div>
+      </section>
 
       {/* Plan Distribution */}
-      <div className="space-y-3">
-        <h2 className="text-lg font-semibold">Active by Plan</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold tracking-tight">
+          Active by Plan
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {Object.entries(activeByPlan).map(([plan, count]) => (
             <Card key={plan} label={plan} value={count} />
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Conversion */}
-      <div className="space-y-3">
-        <h2 className="text-lg font-semibold">Trial Conversion</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold tracking-tight">
+          Trial Conversion
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <Card label="Active Trials" value={conversion.activeTrials} />
           <Card label="Trials Ending Soon" value={conversion.trialsEndingSoon} />
           <Card label="Conversions (7d)" value={conversion.conversions7d} />
@@ -63,17 +73,18 @@ export default function SuperAdminDashboard() {
             value={`${(conversion.conversionRate * 100).toFixed(1)}%`}
           />
         </div>
-      </div>
+      </section>
 
       {/* Churn Detail */}
-      <div className="space-y-3">
-        <h2 className="text-lg font-semibold">Churn Detail</h2>
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold tracking-tight">
+          Churn Detail
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card label="Churned Users" value={churn.count} />
           <Card label="Churn Rate" value={`${(churn.rate * 100).toFixed(1)}%`} />
         </div>
-      </div>
-
+      </section>
     </div>
   );
 }

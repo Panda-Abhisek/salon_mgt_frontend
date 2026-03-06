@@ -7,9 +7,9 @@ export default function PageHeader() {
   const breadcrumbs = useBreadcrumbs();
 
   return (
-    <div className="m-3">
+    <div className="pb-2 border-b">
       {/* Breadcrumbs */}
-      <nav className="text-sm text-muted-foreground">
+      <nav className="text-xs sm:text-sm text-muted-foreground">
         <ol className="flex items-center gap-2">
           {breadcrumbs.map((crumb, i) => (
             <li key={crumb.path} className="flex items-center gap-2">
