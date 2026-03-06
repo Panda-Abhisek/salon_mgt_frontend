@@ -133,7 +133,7 @@ const Services = () => {
             disabled={isFull}
             variant={isFull ? "secondary" : "default"}
           >
-            {isFull ? "Limit reached" : "Add Staff"}
+            {isFull ? "Limit reached" : "Add Service"}
           </Button>
         )}
         {/* {isAdmin && (
@@ -171,8 +171,14 @@ const Services = () => {
             <DialogTitle>Add service</DialogTitle>
           </DialogHeader>
           <ServiceForm
-            onSubmit={createService}
             loading={creating}
+            onSubmit={async (data) => {
+              const res = await createService(data);
+
+              if (res?.ok !== false) {
+                setCreateOpen(false); // ✅ close dialog after successful save
+              }
+            }}
           />
         </DialogContent>
       </Dialog>
