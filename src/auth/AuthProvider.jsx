@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
 
       setAccessToken(token);
       await fetchMe(token);
+      // console.log('login success and fetching me success');
     } finally {
       setLoading(false);
     }
