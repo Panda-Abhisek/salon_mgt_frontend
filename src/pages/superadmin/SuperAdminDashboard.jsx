@@ -29,7 +29,7 @@ export default function SuperAdminDashboard() {
   } = data;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-4">
       <header className="space-y-1">
         <h1 className="text-2xl font-semibold tracking-tight">
           Super Admin Billing
