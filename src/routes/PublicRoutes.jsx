@@ -7,6 +7,8 @@ const PublicRoutes = () => {
   if (isAuthenticated) {
     if (hasRole("ROLE_SALON_ADMIN") || hasRole("ROLE_STAFF")) {
       return <Navigate to="/home" replace />;
+    } else if (hasRole("ROLE_SUPER_ADMIN")) {
+      return <Navigate to="/superadmin" replace />;
     } else {
       return <Navigate to="/salons" replace />;
     }
