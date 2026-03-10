@@ -20,6 +20,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import SuperAdminDashboard from "./superadmin/SuperAdminDashboard";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -54,6 +55,8 @@ const Home = () => {
     <PageWrapper>
       <div className="space-y-6 max-w-5xl mx-auto">
 
+        {/* {primaryRole === "SUPER_ADMIN" && ()} */}
+
         {/* ---------- Salon Setup (Admin Only) ---------- */}
         {primaryRole === "ADMIN" && (
           <Card>
@@ -82,6 +85,10 @@ const Home = () => {
         )}
 
         {/* ---------- Dashboards (Role Based) ---------- */}
+
+        {primaryRole === "SUPER_ADMIN" && (
+          <SuperAdminDashboard />
+        )}
 
         {primaryRole === "ADMIN" && salonStatus === "has_salon" && (
           <AdminDashboard />
