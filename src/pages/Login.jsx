@@ -15,13 +15,6 @@ const Login = () => {
     setError(null)
     try {
       await login(credentials)
-
-      if (hasRole("ROLE_SALON_ADMIN") || hasRole("ROLE_STAFF")) {
-        navigate("/home", { replace: true })
-      } else {
-        navigate("/salons", { replace: true })
-      }
-
     } catch {
       setError("Invalid email or password")
     }
