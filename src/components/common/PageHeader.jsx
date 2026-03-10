@@ -9,7 +9,7 @@ export default function PageHeader() {
   return (
     <div className="pb-2 border-b">
       {/* Breadcrumbs */}
-      <nav className="text-xs sm:text-sm text-muted-foreground">
+      {/* <nav className="text-xs sm:text-sm text-muted-foreground">
         <ol className="flex items-center gap-2">
           {breadcrumbs.map((crumb, i) => (
             <li key={crumb.path} className="flex items-center gap-2">
@@ -27,7 +27,7 @@ export default function PageHeader() {
             </li>
           ))}
         </ol>
-      </nav>
+      </nav> */}
 
       {/* Page title */}
       {/* <h1 className="text-2xl font-semibold mt-2">

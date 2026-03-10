@@ -27,12 +27,12 @@ export default function AppLayout() {
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Desktop sidebar */}
-      <div className="hidden md:block">
+      {/* <div className="hidden md:block">
         <Sidebar />
-      </div>
+      </div> */}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col">
+      {/* <div className="flex-1 flex flex-col">
         <header className="md:hidden border-b p-2">
           <MobileSidebar />
         </header>
@@ -47,11 +47,11 @@ export default function AppLayout() {
             </PageTransition>
           </AnimatePresence>
         </main>
-      </div>
-      <UpgradeModal
+      </div> */}
+      {/* <UpgradeModal
         open={upgradeOpen}
         onClose={() => setUpgradeOpen(false)}
-      />
+      /> */}
     </div>
   );
 }
