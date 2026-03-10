@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
+import BookingStepIndicator from "./BookingStepIndicator";
 
 const SelectStaffDateStep = ({
+  service,
   staff,
   loading,
   selectedStaff,
@@ -13,6 +17,7 @@ const SelectStaffDateStep = ({
 }) => {
   return (
     <div className="w-full max-w-2xl space-y-6">
+      <BookingStepIndicator currentStep={2} />
       {/* Header */}
       <div>
         <h1 className="text-2xl font-semibold">New Booking</h1>
@@ -21,8 +26,20 @@ const SelectStaffDateStep = ({
         </p>
       </div>
 
+      {/* Selection summary */}
+      {service && (
+        <div className="rounded-lg border bg-muted/50 px-4 py-3 text-sm">
+          <span className="text-muted-foreground">Selected: </span>
+          <span className="font-medium">{service.name}</span>
+          <span className="text-muted-foreground">
+            {" "}
+            (₹{service.price} · {service.durationMinutes} min)
+          </span>
+        </div>
+      )}
+
       {/* Staff */}
-      <div className="space-y-2">
+      <div className="space-y-2" aria-busy={loading} aria-live="polite">
         <p className="font-medium">Select Staff</p>
 
         {loading && <Skeleton className="h-16 w-full" />}
@@ -52,12 +69,14 @@ const SelectStaffDateStep = ({
 
       {/* Date */}
       <div className="space-y-2">
-        <p className="font-medium">Select Date</p>
-        <input
+        <Label htmlFor="booking-date">Select Date</Label>
+        <Input
+          id="booking-date"
           type="date"
-          className="w-full border rounded-md px-3 py-2"
+          min={new Date().toISOString().split("T")[0]}
           value={date}
           onChange={(e) => onDateChange(e.target.value)}
+          autoFocus
         />
       </div>
 

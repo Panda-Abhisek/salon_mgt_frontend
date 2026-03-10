@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import BookingStepIndicator from "./BookingStepIndicator";
 
 const SelectServiceStep = ({
   services,
@@ -15,6 +16,7 @@ const SelectServiceStep = ({
 }) => {
   return (
     <div className="w-full max-w-2xl space-y-6">
+      <BookingStepIndicator currentStep={1} />
       {/* Header */}
       <div>
         <h1 className="text-2xl font-semibold">New Booking</h1>
@@ -30,7 +32,15 @@ const SelectServiceStep = ({
           .map((service) => (
             <Card
               key={service.id}
+              role="button"
+              tabIndex={0}
               onClick={() => onSelect(service)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelect(service);
+                }
+              }}
               className={cn(
                 "cursor-pointer transition-all",
                 selected?.id === service.id
