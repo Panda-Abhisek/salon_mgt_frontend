@@ -6,10 +6,10 @@ const Feature13 = ({
   features = [
     {
       id: "feature-1",
-      heading: "Design System Approved",
+      heading: "Appointments",
       label: "FOR DESIGNERS",
       description:
-        "Hundreds of finely crafted components for shadcn/ui available in Figma. Easily modify the design system to your brand.",
+        "Online booking and calendar for your team and clients. Let customers book 24/7 and keep everyone in sync.",
       image:
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
       url: "https://shadcnblocks.com",
