@@ -2,6 +2,7 @@ import { hasRole } from "@/auth/permissions";
 import { useAuth } from "@/auth/useAuth";
 import { Faq1 } from "@/components/faq1";
 import { Feature13 } from "@/components/feature13";
+import { Feature43 } from "@/components/feature43";
 import { Footer2 } from "@/components/footer2";
 import { Hero3 } from "@/components/hero3";
 import { Navbar5 } from "@/components/navbar5";
@@ -32,7 +33,7 @@ const Landing = () => {
       <Navbar5 isAuthenticated={isAuthenticated} onAuthClick={handleAuthAction} />
       <main className="flex flex-col items-center w-full">
         <Hero3 className="w-full" />
-        <Feature13 className="w-full" />
+        <Feature43 className="w-full" />
         <Pricing2 className="w-full" />
         <Faq1 className="w-full" />
       </main>
