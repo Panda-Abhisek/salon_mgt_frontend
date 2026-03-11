@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import Example from "./badge-standard-3";
 
 const Pricing2 = ({
   heading = "Pricing",
@@ -21,37 +22,54 @@ const Pricing2 = ({
 
   plans = [
     {
-      id: "plus",
-      name: "Plus",
+      id: "free",
+      name: "Free",
       description: "For personal use",
-      monthlyPrice: "$19",
-      yearlyPrice: "$179",
+      monthlyPrice: "₹0",
+      yearlyPrice: "₹0",
       features: [
-        { text: "Up to 5 team members" },
-        { text: "Basic components library" },
+        { text: "Up to 2 team members" },
+        { text: "Basic Inventory" },
         { text: "Community support" },
-        { text: "1GB storage space" },
+        { text: "Up to 5 services" },
       ],
       button: {
         text: "Purchase",
-        url: "https://shadcnblocks.com",
+        url: "#",
       },
     },
     {
       id: "pro",
       name: "Pro",
       description: "For professionals",
-      monthlyPrice: "$49",
-      yearlyPrice: "$359",
+      monthlyPrice: "₹999",
+      yearlyPrice: "₹10,999",
+      features: [
+        { text: "Up to 10 team members" },
+        { text: "Advanced Inventory" },
+        { text: "Priority support" },
+        { text: "Up to 25 services" },
+      ],
+      button: {
+        text: "Purchase",
+        url: "#",
+      },
+    },
+    {
+      id: "premium",
+      name: "Premium",
+      description: "For Owners",
+      monthlyPrice: "₹2,499",
+      yearlyPrice: "₹28,999",
       features: [
         { text: "Unlimited team members" },
-        { text: "Advanced components" },
+        { text: "AI components" },
         { text: "Priority support" },
         { text: "Unlimited storage" },
       ],
       button: {
         text: "Purchase",
-        url: "https://shadcnblocks.com",
+        url: "#",
       },
     },
   ],
@@ -77,8 +95,11 @@ const Pricing2 = ({
             {plans.map((plan) => (
               <Card key={plan.id} className="flex w-80 flex-col justify-between text-left">
                 <CardHeader>
-                  <CardTitle>
+                  <CardTitle className='flex justify-between'>
                     <p>{plan.name}</p>
+                    {plan.id === "pro" && (
+                      <Example />
+                    )}
                   </CardTitle>
                   <p className="text-sm text-muted-foreground">
                     {plan.description}
@@ -94,11 +115,11 @@ const Pricing2 = ({
                 </CardHeader>
                 <CardContent>
                   <Separator className="mb-6" />
-                  {plan.id === "pro" && (
-                    <p className="mb-3 font-semibold">
-                      Everything in Plus, and:
-                    </p>
-                  )}
+                  {/* {plan.id === "pro" && (
+                    // <p className="mb-3 font-semibold">
+                    //   Everything in Plus, and:
+                    // </p>
+                  )} */}
                   <ul className="space-y-4">
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-2 text-sm">

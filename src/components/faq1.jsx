@@ -59,8 +59,8 @@ const Faq1 = ({
 }) => {
   return (
     <section className={cn("py-32", className)}>
-      <div className="container max-w-3xl">
-        <h1 className="mb-4 text-3xl font-semibold md:mb-11 md:text-4xl">
+      <div className="container max-w-3xl m-auto">
+        <h1 className="mb-4 text-3xl font-semibold text-center md:mb-11 md:text-4xl">
           {heading}
         </h1>
         <Accordion type="single" collapsible>

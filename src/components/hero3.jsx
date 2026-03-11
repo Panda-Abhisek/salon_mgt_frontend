@@ -4,19 +4,20 @@ import { cn } from "@/lib/utils";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 const Hero3 = ({
-  heading = "Blocks built with Shadcn & Tailwind",
+  heading = "People who care about your growth",
   description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
 
   buttons = {
     primary: {
       text: "Sign Up",
-      url: "https://www.shadcnblocks.com",
+      url: "/signup",
     },
     secondary: {
       text: "Get Started",
-      url: "https://www.shadcnblocks.com",
+      url: "/login",
     },
   },
 
@@ -86,7 +87,7 @@ const Hero3 = ({
             className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
             {buttons.primary && (
               <Button asChild className="w-full sm:w-auto">
-                <a href={buttons.primary.url}>{buttons.primary.text}</a>
+                <Link to={buttons.primary.url}>{buttons.primary.text}</Link>
               </Button>
             )}
             {buttons.secondary && (
@@ -104,6 +105,7 @@ const Hero3 = ({
             src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
             alt="placeholder hero"
             className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]" />
+            {/* <iframe src="https://ui.shadcn.com/view/new-york-v4/dashboard-01" height='800px' loading="lazy" className="relative z-20 no-scrollbar w-full bg-background"></iframe> */}
         </div>
       </div>
     </section>

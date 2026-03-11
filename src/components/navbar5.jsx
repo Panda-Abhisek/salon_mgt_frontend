@@ -33,38 +33,38 @@ const Navbar5 = ({
   isAuthenticated,
   onAuthClick,
 }) => {
-  const features = [
-    {
-      title: "Dashboard",
-      description: "Overview of your activity",
-      href: "#",
-    },
-    {
-      title: "Analytics",
-      description: "Track your performance",
-      href: "#",
-    },
-    {
-      title: "Settings",
-      description: "Configure your preferences",
-      href: "#",
-    },
-    {
-      title: "Integrations",
-      description: "Connect with other tools",
-      href: "#",
-    },
-    {
-      title: "Storage",
-      description: "Manage your files",
-      href: "#",
-    },
-    {
-      title: "Support",
-      description: "Get help when needed",
-      href: "#",
-    },
-  ];
+  // const features = [
+  //   {
+  //     title: "Dashboard",
+  //     description: "Overview of your activity",
+  //     href: "#",
+  //   },
+  //   {
+  //     title: "Analytics",
+  //     description: "Track your performance",
+  //     href: "#",
+  //   },
+  //   {
+  //     title: "Settings",
+  //     description: "Configure your preferences",
+  //     href: "#",
+  //   },
+  //   {
+  //     title: "Integrations",
+  //     description: "Connect with other tools",
+  //     href: "#",
+  //   },
+  //   {
+  //     title: "Storage",
+  //     description: "Manage your files",
+  //     href: "#",
+  //   },
+  //   {
+  //     title: "Support",
+  //     description: "Get help when needed",
+  //     href: "#",
+  //   },
+  // ];
 
   return (
     <section className={cn("py-4", className)}>
@@ -80,7 +80,7 @@ const Navbar5 = ({
             </span>
           </a>
           <NavigationMenu className="hidden lg:block">
-            <NavigationMenuList>
+            {/* <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Features</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -118,7 +118,7 @@ const Navbar5 = ({
                   Contact
                 </NavigationMenuLink>
               </NavigationMenuItem>
-            </NavigationMenuList>
+            </NavigationMenuList> */}
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
             <ThemeToggle />
@@ -163,7 +163,7 @@ const Navbar5 = ({
                     <AccordionTrigger className="text-base hover:no-underline">
                       Features
                     </AccordionTrigger>
-                    <AccordionContent>
+                    {/* <AccordionContent>
                       <div className="grid md:grid-cols-2">
                         {features.map((feature, index) => (
                           <a
@@ -181,10 +181,10 @@ const Navbar5 = ({
                           </a>
                         ))}
                       </div>
-                    </AccordionContent>
+                    </AccordionContent> */}
                   </AccordionItem>
                 </Accordion>
-                <div className="flex flex-col gap-6">
+                {/* <div className="flex flex-col gap-6">
                   <a href="#" className="font-medium">
                     Templates
                   </a>
@@ -194,7 +194,7 @@ const Navbar5 = ({
                   <a href="#" className="font-medium">
                     Pricing
                   </a>
-                </div>
+                </div> */}
                 <div className="mt-6 flex flex-col gap-4">
                   <Button onClick={onAuthClick} variant="outline">
                     {isAuthenticated ? "Dashboard" : "Log in"}
