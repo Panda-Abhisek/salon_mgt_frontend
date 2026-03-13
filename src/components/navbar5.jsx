@@ -139,9 +139,11 @@ const Navbar5 = ({
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="outline" size="icon">
-                <MenuIcon className="h-4 w-4" />
-              </Button>
+              <div className="mt-6 flex flex-col gap-4">
+                <Button onClick={onAuthClick} variant="outline">
+                  {isAuthenticated ? "Dashboard" : "Log in"}
+                </Button>
+              </div>
             </SheetTrigger>
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
@@ -157,51 +159,6 @@ const Navbar5 = ({
                   </a>
                 </SheetTitle>
               </SheetHeader>
-              <div className="flex flex-col p-4">
-                <Accordion type="single" collapsible className="mt-4 mb-2">
-                  <AccordionItem value="solutions" className="border-none">
-                    <AccordionTrigger className="text-base hover:no-underline">
-                      Features
-                    </AccordionTrigger>
-                    {/* <AccordionContent>
-                      <div className="grid md:grid-cols-2">
-                        {features.map((feature, index) => (
-                          <a
-                            href={feature.href}
-                            key={index}
-                            className="rounded-md p-3 transition-colors hover:bg-muted/70">
-                            <div key={feature.title}>
-                              <p className="mb-1 font-semibold text-foreground">
-                                {feature.title}
-                              </p>
-                              <p className="text-sm text-muted-foreground">
-                                {feature.description}
-                              </p>
-                            </div>
-                          </a>
-                        ))}
-                      </div>
-                    </AccordionContent> */}
-                  </AccordionItem>
-                </Accordion>
-                {/* <div className="flex flex-col gap-6">
-                  <a href="#" className="font-medium">
-                    Templates
-                  </a>
-                  <a href="#" className="font-medium">
-                    Blog
-                  </a>
-                  <a href="#" className="font-medium">
-                    Pricing
-                  </a>
-                </div> */}
-                <div className="mt-6 flex flex-col gap-4">
-                  <Button onClick={onAuthClick} variant="outline">
-                    {isAuthenticated ? "Dashboard" : "Log in"}
-                  </Button>
-                  {/* <Button variant="ghost">Start for free</Button> */}
-                </div>
-              </div>
             </SheetContent>
           </Sheet>
         </nav>
