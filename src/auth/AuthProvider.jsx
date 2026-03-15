@@ -95,6 +95,8 @@ export const AuthProvider = ({ children }) => {
     hasAnyRole: (roles) => hasAnyRole(user, roles),
     login,
     logout,
+    setAccessToken,
+    fetchMe,
     isAuthenticated: !!user,
   };
 

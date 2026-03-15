@@ -29,6 +29,9 @@ import FakeCheckout from "@/pages/checkout/FakeCheckout";
 import SuperAdminDashboard from "@/pages/superadmin/SuperAdminDashboard";
 import AuditDashboard from "@/pages/superadmin/AuditDashboard";
 
+import OAuthSuccess from "@/pages/OAuthSuccess";
+import OAuthFailure from "@/pages/OAuthFailure";
+
 import PublicRoutes from "@/routes/PublicRoutes";
 import ProtectedRoutes from "@/routes/ProtectedRoutes";
 import RoleGuard from "@/auth/RoleGuard";
@@ -43,6 +46,8 @@ function AppRouter() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/oauth/success" element={<OAuthSuccess />} />
+        <Route path="/oauth/failure" element={<OAuthFailure />} />
       </Route>
 
       {/* ---------------- PROTECTED ---------------- */}
